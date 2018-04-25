@@ -75,3 +75,6 @@ hs_err_pid*
 
 # .DS_Store files found on MacOS
 .DS_Store
+
+# the test package
+src/test/
