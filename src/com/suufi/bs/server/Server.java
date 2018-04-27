@@ -19,6 +19,7 @@ public class Server {
 	boolean listeningSocket = true;
 	int playerCount = 0;
 	ArrayList<Socket> playerSockets = new ArrayList<>();
+	int currentPlayerIndex;
 
 	public Server(GUI gui) {
 		this.gui = gui;
@@ -114,8 +115,25 @@ public class Server {
 		Collections.swap(playerSockets, startingPlayerIndex, 0);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(playerSockets.get(0).getOutputStream()));
-		bw.write("turn");
+		bw.write("turn 1");
 		bw.newLine();
 		bw.flush();
+		
+		currentPlayerIndex = 0;
+	}
+	
+	public void play() throws IOException {
+		
+	}
+	
+	public void turnNext() throws IOException {
+		if (currentPlayerIndex < playerCount) currentPlayerIndex++;
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(playerSockets.get(currentPlayerIndex).getOutputStream()));
+		bw.write("turn");
+		// TODO: make it so that it displays to the player the current card as it is a required argument of turn
+		bw.newLine();
+		bw.flush();		
+		
 	}
 }
